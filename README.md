@@ -31,7 +31,8 @@ Delhi
 
 ## Usage :
 
-- Download the GeoCoder-0.0.1-SNAPSHOT.jar from Artificat foler
+- Download the GeoCoder-0.0.1-SNAPSHOT.jar from Artificat foler or using this link : [GeoCoder.jar](https://github.com/devmohit-live/GeoCoder/raw/main/Artifact/GeoCoder-0.0.1-SNAPSHOT.jar)
+
 - Run the following command
 
 ```bash
