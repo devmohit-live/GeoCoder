@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mohit.assignment.GeoCoder.dto.FileUploadResponse;
+import com.mohit.assignment.GeoCoder.exceptions.FileCreationException;
+import com.mohit.assignment.GeoCoder.exceptions.FileUploadException;
+import com.mohit.assignment.GeoCoder.exceptions.ReadFileException;
 import com.mohit.assignment.GeoCoder.services.FileStoreageService;
 
 
@@ -25,8 +28,13 @@ public class FileUploadDownloadController {
 	private FileStoreageService filestorage;
 	
 	@PostMapping("/upload-file")
-	public FileUploadResponse fileUpload(@RequestParam("file") MultipartFile file){
-		String filename = filestorage.storeFile(file);
+	public FileUploadResponse fileUpload(@RequestParam("file") MultipartFile file) throws FileUploadException{
+		String filename;
+		try {
+			filename = filestorage.storeFile(file);
+		} catch (ReadFileException | FileCreationException e) {
+			throw new FileUploadException("Failed to upload file ");
+		}
 		String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/").path(filename).toUriString();
 		FileUploadResponse response = new FileUploadResponse(filename,file.getContentType() ,url );
 				

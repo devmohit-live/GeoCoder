@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,12 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.mohit.assignment.GeoCoder.exceptions.ReadFileException;
 import com.mohit.assignment.GeoCoder.modals.Location;
 @Service
-public class FileOp {
+public class GetCordinateService {
 	
 	
-	public InputStream readFiles(Path path) {
+	public InputStream readFiles(Path path) throws ReadFileException {
 		try {
 			List<String> list = Files.lines(path).map(el-> getLocation(el))
 				      .map(el->el.getLatitude()+", "+el.getLongitude())
@@ -30,10 +30,8 @@ public class FileOp {
 			return new ByteArrayInputStream(sb.toString().getBytes());
 		 
 		} catch (IOException ex) {
-		  ex.printStackTrace();//handle exception here
+			throw new ReadFileException("Invalid Path");
 		}
-		
-		return null;
 	}
 
 	public Location getLocation(String el) {

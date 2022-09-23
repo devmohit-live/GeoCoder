@@ -1,6 +1,5 @@
 package com.mohit.assignment.GeoCoder.services;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -8,8 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -17,6 +14,10 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.mohit.assignment.GeoCoder.exceptions.FileCreationException;
+import com.mohit.assignment.GeoCoder.exceptions.InvalidPathException;
+import com.mohit.assignment.GeoCoder.exceptions.ReadFileException;
 
 
 @Component
@@ -27,7 +28,7 @@ public class FileStoreageService {
 	String location = "src/main/resources/files";
 	
 	@Autowired
-	private FileOp fileop;
+	private GetCordinateService cordinateService;
 	
 	public FileStoreageService() {
 		this.fileStoragePath= Paths.get(location);
@@ -41,21 +42,21 @@ public class FileStoreageService {
 
 
 
-	public String storeFile(MultipartFile file) {
+	public String storeFile(MultipartFile file) throws  ReadFileException, FileCreationException {
 		String name = StringUtils.cleanPath(file.getOriginalFilename());
 		
 		Path inpPath = Paths.get(fileStoragePath+"\\"+name);
 		Path outPath = Paths.get(fileStoragePath+"\\"+name+"-output");
 		try {
-			InputStream outStream = fileop.readFiles(inpPath);
+			InputStream outStream = cordinateService.readFiles(inpPath);
 			System.out.println(outStream.toString());
 			Files.copy(file.getInputStream(), inpPath, StandardCopyOption.REPLACE_EXISTING);
 			Files.copy(outStream, outPath, StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}catch (ReadFileException | IOException e) {
+			throw new FileCreationException("Invliad Path, File not Found");
+		}finally {
+			return name;
 		}
-		return name;
 	}
 
 
