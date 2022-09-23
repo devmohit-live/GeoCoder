@@ -29,6 +29,7 @@ public class FileUploadDownloadController {
 		String filename = filestorage.storeFile(file);
 		String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/").path(filename).toUriString();
 		FileUploadResponse response = new FileUploadResponse(filename,file.getContentType() ,url );
+				
 		return response;
 	}
 	

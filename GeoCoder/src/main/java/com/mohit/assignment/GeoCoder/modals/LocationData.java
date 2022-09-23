@@ -1,5 +1,7 @@
 package com.mohit.assignment.GeoCoder.modals;
 
+import java.util.Arrays;
+
 import org.springframework.cache.annotation.Cacheable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,9 +18,15 @@ public class LocationData {
 		this.locations = locations;
 	}
 	
-	@Cacheable(cacheNames = "location", key="#name")
 	public Location getCorrectLocationCordinates() {
-		return locations[0];
+		if(locations.length > 0)
+			return locations[0];
+		return new Location();
+	}
+
+	@Override
+	public String toString() {
+		return "LocationData [locations=" + Arrays.toString(locations) + "]";
 	}
 	
 }

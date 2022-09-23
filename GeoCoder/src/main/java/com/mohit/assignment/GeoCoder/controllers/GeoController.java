@@ -39,6 +39,7 @@ public class GeoController {
 		
 		ResponseEntity<LocationData> responseEntity = new RestTemplate().getForEntity(uri.toUriString(), LocationData.class);
 		LocationData locationData =  responseEntity.getBody();
+//		System.out.println(locationData);
 		return locationData.getCorrectLocationCordinates();
 	}
 }

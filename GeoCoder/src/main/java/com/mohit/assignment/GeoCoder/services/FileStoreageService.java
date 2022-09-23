@@ -43,10 +43,14 @@ public class FileStoreageService {
 
 	public String storeFile(MultipartFile file) {
 		String name = StringUtils.cleanPath(file.getOriginalFilename());
-		Path filePath = Paths.get(fileStoragePath+"\\"+name);
+		
+		Path inpPath = Paths.get(fileStoragePath+"\\"+name);
+		Path outPath = Paths.get(fileStoragePath+"\\"+name+"-output");
 		try {
-			InputStream inpStream = fileop.readFiles(filePath);
-			Files.copy(inpStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+			InputStream outStream = fileop.readFiles(inpPath);
+			System.out.println(outStream.toString());
+			Files.copy(file.getInputStream(), inpPath, StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(outStream, outPath, StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,9 +63,10 @@ public class FileStoreageService {
 
 	public Resource download(String fileName) {
 		Path path = Paths.get(location).toAbsolutePath().resolve(fileName);
+		Path path2 = Paths.get(location).toAbsolutePath().resolve(fileName+"-output");
 		Resource resource = null;
 		try {	
-			resource = new UrlResource(path.toUri());
+			resource = new UrlResource(path2.toUri());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
