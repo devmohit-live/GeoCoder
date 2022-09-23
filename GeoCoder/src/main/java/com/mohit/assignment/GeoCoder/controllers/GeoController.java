@@ -5,7 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -22,9 +24,10 @@ public class GeoController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	private static final String API_KEY = "0d6b94b786955ce34b16bc531bcdacde";
+	
 	@GetMapping("/test")
 	public String test() {
-		return "service up";
+		return "serviceup";
 	}
 	
 	@Cacheable("location") //based on loaction as key key cache the data
@@ -42,4 +45,5 @@ public class GeoController {
 //		System.out.println(locationData);
 		return locationData.getCorrectLocationCordinates();
 	}
+
 }
