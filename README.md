@@ -52,7 +52,7 @@ localhost:8080/upload-file
 Use key as **file** and your input file as value
 ![Step 1 ](https://raw.githubusercontent.com/devmohit-live/GeoCoder/main/assets/a.JPG?token=GHSAT0AAAAAABV4B2BADKMCRLLDQAGINXLIYZOENOQ)
 
-- Yoy will get the following response
+- You will get the following response
 
 ![Step 2 ](https://raw.githubusercontent.com/devmohit-live/GeoCoder/main/assets/b.JPG?token=GHSAT0AAAAAABV4B2BBTO73YJAHSTN3BVBIYZOESRA)
 
