@@ -61,5 +61,6 @@ Use key as **file** and your input file as value
 ![Step 3 ](https://raw.githubusercontent.com/devmohit-live/GeoCoder/main/assets/c.JPG?token=GHSAT0AAAAAABV4B2BBAPI2JJZBZNOGXKOKYZOETYA)
 
 - Click Send and You will get and URL for output file containing all the geo cordinated for respective inputs in your input file
+- On Clicking this url a file (output) file will be downloaded to you storage.
 
 ![Step 4 ](https://raw.githubusercontent.com/devmohit-live/GeoCoder/main/assets/d.JPG?token=GHSAT0AAAAAABV4B2BBGA3IF2WLACV4EVAKYZOEQ2A)
